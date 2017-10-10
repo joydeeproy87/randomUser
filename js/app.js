@@ -9,9 +9,11 @@ function append(parent, el) {
 }
 
 var cards = document.getElementById('users');
+
 var url = 'https://randomuser.me/api/?results=5';
 
-fetch(url).then(function (resp) {
+fetch(url)
+.then(function (resp) {
 	return resp.json();
 }).then(function (data) {
 	var authors = data.results;
@@ -19,14 +21,16 @@ fetch(url).then(function (resp) {
 
 	return authors.map(function (author) {
 
-		var card = `<div class="card">
-		    <img class="card-img-top" src="${author.picture.thumbnail}" alt="${author.name.first} ${author.name.last}">
-		    <div class="card-body">
-		      <h4 class="card-title">Name: ${author.name.first} ${author.name.last}</h4>
-		      <p class="card-text">Gender: ${author.gender}</p>
-		      <p class="card-text">DOB: ${author.dob}</p>
-		    </div>
-		  </div>`;
+		var card = `
+				<div class="card">
+				  <img class="card-img-top" src="${author.picture.thumbnail}" alt="${author.name.first} ${author.name.last}">
+				  <div class="card-body">
+				    <h4 class="card-title">Name: ${author.name.first} ${author.name.last}</h4>
+				    <p class="card-text">Gender: ${author.gender}</p>
+				    <p class="card-text">DOB: ${author.dob}</p>
+				  </div>
+				</div>
+			`;
 
 		// cards.innerHTML = card;
 
