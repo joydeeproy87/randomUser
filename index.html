@@ -1,36 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="utf-8">
-<title>RandomUser Me</title>
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/app.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="shortcut icon" href="">
+	<meta charset="UTF-8">
+	<title>Fetch API</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<style>
+		#authors {
+			padding-left: 0;
+		}
+	</style>
 </head>
-<body>
-	<div class="container">
+<body class="container">
+	<h1 class="display-4 text-center">RandomUser API - Sample Cards</h1>
+	<ul id="authors" class="row justify-content-center"></ul>
 
-		<div class="card-deck" id="users">
+	<script>
+		const ul = document.getElementById('authors');
+		const url = 'https://randomuser.me/api?results=10';
 
-		<!-- individual contacts starts -->
-		<div class="card">
-			<img class="card-img-top" src="" alt="Card image cap">
-			<div class="card-body">
-				<h4 class="card-title">Card title</h4>
-				<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-			</div>
-		</div>
-		<!-- individual contacts ends -->
+		function createNode(element) {
+			return document.createElement(element);
+		}
+		function append(parent, element) {
+			return parent.appendChild(element);
+		}
 
-	</div>
+		fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data) {
+			let authors = data.results;
+			return authors.map(function(author) {
+				let li = createNode('li'),
+					img = createNode('img'),
+					span = createNode('span');
 
+				li.setAttribute('class', 'card col-1 mt-3 ml-3 pl-0 pr-0');
+				img.setAttribute('class', 'card-img-top');
+				span.setAttribute('class', 'card-body');
 
-	<ul id="authors"></ul>
+				img.src = author.picture.large;
+				span.innerHTML = `${author.name.first} ${author.name.last}`;
 
-	<script type="text/javascript" src="js/app.js"></script>
+				append(li, img);
+				append(li, span);
+				append(ul, li);
+			})
+		})
+	</script>
 </body>
 </html>
