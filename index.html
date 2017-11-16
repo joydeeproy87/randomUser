@@ -39,7 +39,10 @@
 				span.setAttribute('class', 'card-body');
 
 				img.src = author.picture.large;
-				span.innerHTML = `${author.name.first} ${author.name.last}`;
+				span.innerHTML = `${author.name.first} ${author.name.last} ${(new Date()).getFullYear(0) - author.dob.split('-')[0]}`;
+
+//				console.log(author.dob.split('-')[0]);
+//				console.log((new Date()).getFullYear(0));
 
 				append(li, img);
 				append(li, span);
